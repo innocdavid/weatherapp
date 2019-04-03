@@ -19,11 +19,10 @@ import com.robotsfoundation.weatherapp.WeatherResult.Weather;
 import com.robotsfoundation.weatherapp.WeatherResult.WeatherResult;
 import com.squareup.picasso.Picasso;
 
-import java.util.function.Consumer;
-
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -41,7 +40,7 @@ public class TodayWeatherFragment extends Fragment {
     ProgressBar loading;
 
 CompositeDisposable compositeDisposable;
-IOpenWeatherMap mService;
+WeathApp mService;
     static TodayWeatherFragment instance;
 
     public static TodayWeatherFragment getInstance(){
@@ -54,7 +53,7 @@ IOpenWeatherMap mService;
     public TodayWeatherFragment() {
        compositeDisposable =new CompositeDisposable();
         Retrofit retrofit= RetrofitClient.getInstance();
-        mService=retrofit.create(IOpenWeatherMap.class);
+        mService=retrofit.create(WeathApp.class);
     }
 
 
@@ -83,55 +82,52 @@ IOpenWeatherMap mService;
     return itemView;
 
     }
+
     private void getWeatherInformation(){
-        compositeDisposable.add(mService.getWetherByLatLog(String.valueOf(Weather.current_location.getLatitude())),
-                String.valueOf(Weather.current_locaton.getLongitude()),
-                Common.APP_ID,
+        compositeDisposable.add(mService.getWeatherByLatLng(String.valueOf(com.robotsfoundation.weatherapp.weather.Weather.current_location),String.valueOf(com.robotsfoundation.weatherapp.weather.Weather.current_location.getLatitude()), com.robotsfoundation.weatherapp.weather.Weather.APP_ID,
                 "metric")
-                .subsecribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<WeatherResult>() {
-                    @Override
-                    public void accept(WeatherResult weatherResult) {
-
-                        Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
-                                .append(weatherResult.getWeather().get(0).getIcon())
-                                .append(".png ").toString()).into(img_weather);
-
-
-                        txt_city_name.setText(weatherResult.getName());
-                        txt_description.setText(new StringBuilder("Weather in")
-                        .append(weatherResult.getName().toString())
-                        );
-                        txt_tempreture.setText(new String.valueOf(weatherResult.getMain().getTemp())
-                        .append("°C").toString());
-
-                        txt_date_time.setText(Weather.convertUnixToDate(weatherResult.getDt()));
-                        txt_pressure.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getPressure())).append("hpa").toString());
-
-                        txt_humidity.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getHumidity())).append("%").toString());
-                        txt_sunrise.setText(Weather.convertUnixToHour(weatherResult.getSys().getSunrise()));
-                        txt_sunset.setText(Weather.convertUnixToHour(weatherResult.getSys().getSunset()));
-                        txt_geo_coord.setText(new StringBuilder("[").append(weatherResult.getCoord().toString()).append("]").toString());
+                .subscribe(new io.reactivex.functions.Consumer<WeatherResult>() {
+                               @Override
+                               public void accept(WeatherResult weatherResult) throws Exception {
+                                   Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
+                                           .append(weatherResult.getWeather().get(0).getIcon())
+                                           .append(".png ").toString()).into(img_weather);
 
 
+                                   txt_city_name.setText(weatherResult.getName());
+                                   txt_description.setText(new StringBuilder("Weather in")
+                                           .append(weatherResult.getName().toString())
+                                   );
+                                   txt_tempreture.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getTemp()))
+                                           .append("°C").toString());
 
-                        weather_panel.setVisibility(View.VISIBLE);
-                        loading.setVisibility(View.GONE);
-                    }
-                }) ;
+                                   txt_date_time.setText(Weather.convertUnixToDate(weatherResult.getDt()));
+                                   txt_pressure.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getPressure())).append("hpa").toString());
+
+                                   txt_humidity.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getHumidity())).append("%").toString());
+                                   txt_sunrise.setText(Weather.convertUnixToHour(weatherResult.getSys().getSunrise()));
+                                   txt_sunset.setText(Weather.convertUnixToHour(weatherResult.getSys().getSunset()));
+                                   txt_geo_coord.setText(new StringBuilder("[").append(weatherResult.getCoord().toString()).append("]").toString());
 
 
-         new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) {
+                                   weather_panel.setVisibility(View.VISIBLE);
+                                   loading.setVisibility(View.GONE);
+                               }
 
-                Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT);
+                           },
 
-            }
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                Toast.makeText(getActivity(), "" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+        );
 
-
-        }
     }
 
-}
+
+    }
+
