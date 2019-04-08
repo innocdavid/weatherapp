@@ -9,6 +9,7 @@
     tools:context=".TodayWeatherFragment">
 
     #checking pull and push this  is just a check
+    # it is working  bros lets finish it
 
   <LinearLayout
       android:id="@+id/weather_panel"
