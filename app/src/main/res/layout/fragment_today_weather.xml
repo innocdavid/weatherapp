@@ -8,7 +8,7 @@
     android:gravity="center_horizontal"
     tools:context=".TodayWeatherFragment">
 
-    #checking pull and push
+    #checking pull and push this  is just a check
 
   <LinearLayout
       android:id="@+id/weather_panel"
