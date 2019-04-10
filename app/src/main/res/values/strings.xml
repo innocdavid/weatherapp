@@ -2,9 +2,7 @@
     <string name="app_name">WeatherApp</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-<<<<<<< HEAD
-    <string name="hello_blank_fragment">Todays Weather</string>
-=======
+
     <string name="hello_blank_fragment">Today Weather</string>
->>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
+
 </resources>

@@ -11,10 +11,6 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-=======
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
         <android.support.v4.view.ViewPager
@@ -24,7 +20,6 @@
             android:layout_height="match_parent">
 
         </android.support.v4.view.ViewPager>
->>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
 
 
         <android.support.v7.widget.Toolbar
@@ -44,18 +39,8 @@
             app:tabMode="fixed"
             app:tabGravity="fill">
         </android.support.design.widget.TabLayout>
-<<<<<<< HEAD
-    </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </android.support.v4.view.ViewPager>
-=======
 
->>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
 
 </android.support.design.widget.CoordinatorLayout>
