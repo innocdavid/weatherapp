@@ -7,11 +7,19 @@
 
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
 
+<<<<<<< HEAD
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+=======
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+>>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
 
     </style>
 

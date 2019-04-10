@@ -8,12 +8,22 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+<<<<<<< HEAD
+=======
+import android.support.v7.app.ActionBar;
+>>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+<<<<<<< HEAD
 
 
+=======
+import android.widget.TableLayout;
+
+import com.google.android.gms.common.internal.service.Common;
+>>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -25,17 +35,29 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.robotsfoundation.weatherapp.Adapter.ViewPagerAdapter;
+<<<<<<< HEAD
 import com.robotsfoundation.weatherapp.Common.Common;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
+=======
+import com.robotsfoundation.weatherapp.weather.Weather;
+
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+>>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
 
     private Toolbar toolbar;
     private TabLayout tableLayout;
     private ViewPager viewPager;
 
     private CoordinatorLayout coordinatorLayout;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
@@ -44,8 +66,13 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.root_view);
+=======
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.root_view);
+
+>>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,6 +84,7 @@ public class MainActivity extends AppCompatActivity  {
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
+<<<<<<< HEAD
 
                         buildLocationRequest();
                         buildLocationCallBack();
@@ -73,15 +101,40 @@ public class MainActivity extends AppCompatActivity  {
                         }
                         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
                         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+=======
+                        if (report.areAllPermissionsGranted()) {
+                            buildLocationRequest();
+                            buildLocationCallBack();
+
+                            if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+
+                                return;
+                            }
+                            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
+                            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+                        }
+
+>>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
                     }
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+<<<<<<< HEAD
 
                         Snackbar.make(coordinatorLayout, "Permission Denial", Snackbar.LENGTH_SHORT).show();
                     }
                 }).check();
     }
+=======
+                        Snackbar.make(coordinatorLayout, "Permission Denied", Snackbar.LENGTH_LONG)
+                                .show();
+
+                    }
+                }).check();
+
+        }
+>>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
 
     private void buildLocationCallBack() {
         locationCallback = new LocationCallback(){
@@ -90,12 +143,20 @@ public class MainActivity extends AppCompatActivity  {
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
 
+<<<<<<< HEAD
                 Common.current_location = locationResult.getLastLocation();
 
                 viewPager = (ViewPager) findViewById(R.id.view_pager);
                 setupViewPager(viewPager);
 
                 tableLayout = (TabLayout)findViewById(R.id.tabs);
+=======
+                Weather.current_location = locationResult.getLastLocation();
+
+                viewPager = (ViewPager) findViewById(R.id.view_pager);
+                setupViewPager(viewPager);
+                tableLayout = (TabLayout) findViewById(R.id.tabs);
+>>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
                 tableLayout.setupWithViewPager(viewPager);
 
                 Log.d("Location", locationResult.getLastLocation().getAltitude() +"/" + locationResult.getLastLocation().getLongitude());
@@ -105,6 +166,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void setupViewPager(ViewPager viewPager) {
+<<<<<<< HEAD
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(TodayWeatherFragment.getInstance(), "Today");
@@ -121,3 +183,22 @@ public class MainActivity extends AppCompatActivity  {
         locationRequest.setSmallestDisplacement(10.0f);
     }
 }
+=======
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(TodayWeatherFragment.getInstance(), "Today");
+        viewPager.setAdapter(adapter);
+    }
+
+    private void buildLocationRequest() {
+
+        locationRequest = new LocationRequest();
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(3000);
+        locationRequest.setSmallestDisplacement(10.0f);
+
+    }
+
+}
+
+>>>>>>> d5ae016495d8ec575927951c495cef5eb6b040ae
