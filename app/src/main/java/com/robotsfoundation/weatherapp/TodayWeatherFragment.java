@@ -182,11 +182,12 @@ WeathApp mService;
     }
 
     private void getWeatherInformation(){
-        compositeDisposable.add(mService.getWeatherByLatLng(String.valueOf(com.robotsfoundation.weatherapp.weather.Weather.current_location),String.valueOf(com.robotsfoundation.weatherapp.weather.Weather.current_location.getLatitude()), com.robotsfoundation.weatherapp.weather.Weather.APP_ID,
+        boolean add = compositeDisposable.add(mService.getWeatherByLatLng(String.valueOf(com.robotsfoundation.weatherapp.weather.Weather.current_location),
+                String.valueOf(com.robotsfoundation.weatherapp.weather.Weather.current_location.getLatitude()), com.robotsfoundation.weatherapp.weather.Weather.APP_ID,
                 "metric")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new io.reactivex.functions.Consumer<WeatherResult>() {
+                .subscribe(new Consumer<WeatherResult>() {
                                @Override
                                public void accept(WeatherResult weatherResult) throws Exception {
                                    Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/")
