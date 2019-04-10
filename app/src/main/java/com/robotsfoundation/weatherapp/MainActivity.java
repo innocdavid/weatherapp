@@ -10,12 +10,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 
 
-
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,8 +34,7 @@ import com.robotsfoundation.weatherapp.Common.Common;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
-
+public class MainActivity extends AppCompatActivity {
 
 
     private Toolbar toolbar;
@@ -70,65 +68,51 @@ public class MainActivity extends AppCompatActivity  {
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
 
 
-                        buildLocationRequest();
-                        buildLocationCallBack();
-
-                        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            // TODO: Consider calling
-                            //    ActivityCompat#requestPermissions
-                            // here to request the missing permissions, and then overriding
-                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                            //                                          int[] grantResults)
-                            // to handle the case where the user grants the permission. See the documentation
-                            // for ActivityCompat#requestPermissions for more details.
-                            return;
-                        }
-                        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
-                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
                         if (report.areAllPermissionsGranted()) {
                             buildLocationRequest();
                             buildLocationCallBack();
 
                             if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-
+                                // TODO: Consider calling
+                                //    ActivityCompat#requestPermissions
+                                // here to request the missing permissions, and then overriding
+                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                //                                          int[] grantResults)
+                                // to handle the case where the user grants the permission. See the documentation
+                                // for ActivityCompat#requestPermissions for more details.
                                 return;
                             }
                             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
                             fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
                         }
-
-
                     }
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
 
-                        Snackbar.make(coordinatorLayout, "Permission Denial", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(coordinatorLayout, "Permission Denied", Snackbar.LENGTH_SHORT).show();
                     }
                 }).check();
     }
 
 
     private void buildLocationCallBack() {
+
         locationCallback = new LocationCallback(){
+
 
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
 
-
                 Common.current_location = locationResult.getLastLocation();
 
-                viewPager = (ViewPager) findViewById(R.id.view_pager);
+                viewPager = (ViewPager)findViewById(R.id.view_pager);
                 setupViewPager(viewPager);
-
                 tableLayout = (TabLayout)findViewById(R.id.tabs);
-
                 tableLayout.setupWithViewPager(viewPager);
 
                 Log.d("Location", locationResult.getLastLocation().getAltitude() +"/" + locationResult.getLastLocation().getLongitude());
-
             }
         };
     }

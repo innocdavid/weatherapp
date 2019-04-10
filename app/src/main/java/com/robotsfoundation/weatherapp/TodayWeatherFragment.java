@@ -73,13 +73,14 @@ public class TodayWeatherFragment extends Fragment {
 
         img_weather=(ImageView)itemView.findViewById(R.id.img_weather);
         txt_city_name=(TextView)itemView.findViewById(R.id.txt_city_name);
-        txt_pressure=(TextView)itemView.findViewById(R.id.txt_pressure);
-        txt_date_time=(TextView)itemView.findViewById(R.id.txt_date_time);
-        txt_description=(TextView)itemView.findViewById(R.id.txt_description);
-        txt_tempreture=(TextView)itemView.findViewById(R.id.txt_temperature);
-        txt_sunset=(TextView)itemView.findViewById(R.id.txt_sunset);
-        txt_sunrise=(TextView)itemView.findViewById(R.id.txt_sunrise);
         txt_humidity=(TextView)itemView.findViewById(R.id.txt_humidity);
+        txt_sunrise=(TextView)itemView.findViewById(R.id.txt_sunrise);
+        txt_sunset=(TextView)itemView.findViewById(R.id.txt_sunset);
+        txt_pressure=(TextView)itemView.findViewById(R.id.txt_pressure);
+        txt_tempreture=(TextView)itemView.findViewById(R.id.txt_temperature);
+        txt_description=(TextView)itemView.findViewById(R.id.txt_description);
+        txt_date_time=(TextView)itemView.findViewById(R.id.txt_date_time);
+        txt_wind =(TextView)itemView.findViewById(R.id.txt_wind);
         txt_geo_coord=(TextView)itemView.findViewById(R.id.txt_geo_coord);
 
         weather_panel = (LinearLayout)itemView.findViewById(R.id.weather_panel);
@@ -107,8 +108,7 @@ public class TodayWeatherFragment extends Fragment {
                             .append(".png").toString()).into(img_weather);
 
                             txt_city_name.setText(weatherResult.getName());
-                            txt_city_name.setText(weatherResult.getName());
-                            txt_description.setText(new StringBuilder("Weather in")
+                            txt_description.setText(new StringBuilder("Weather in ")
                                     .append(weatherResult.getName()));
 
                             txt_tempreture.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getTemp()))
