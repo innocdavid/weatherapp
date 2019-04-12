@@ -17,7 +17,7 @@ import com.robotsfoundation.weatherapp.Model.WeatherForecastResult;
 import com.robotsfoundation.weatherapp.Retrofit.IOpenWeatherMap;
 import com.robotsfoundation.weatherapp.Retrofit.RetrofitClient;
 
-import io.reactivex.Scheduler;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -65,16 +65,24 @@ public class ForecastFragment extends Fragment {
         View itemView = inflater.inflate(R.layout.fragment_forecast, container, false);
 
 
-        txt_city_name = (TextView)itemView.findViewById(R.id.txt_city_name);
-        txt_geo_coord = (TextView)itemView.findViewById(R.id.txt_geo_coord);
+        txt_city_name = (TextView) itemView.findViewById(R.id.txt_city_name);
+        txt_geo_coord = (TextView) itemView.findViewById(R.id.txt_geo_coord);
 
-        recycler_forecast = (RecyclerView)itemView.findViewById(R.id.recycler_forecast);
+        recycler_forecast = (RecyclerView) itemView.findViewById(R.id.recycler_forecast);
         recycler_forecast.setHasFixedSize(true);
         recycler_forecast.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         getWeatherForecastInformation();
 
         return itemView;
+    }
+
+
+    @Override
+    public void onStop() {
+
+        compositeDisposable.clear();
+        super.onStop();
     }
 
     private void getWeatherForecastInformation() {
@@ -88,13 +96,13 @@ public class ForecastFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<WeatherForecastResult>() {
                                @Override
-                               public void accept(WeatherForecastResult weatherForecastResult) throws Exception {
+                               public void accept(WeatherForecastResult weatherForecastResult) {
                                    displayWeatherForecast(weatherForecastResult);
 
                                }
                            }, new Consumer<Throwable>() {
                                @Override
-                               public void accept(Throwable throwable) throws Exception {
+                               public void accept(Throwable throwable) {
                                    Log.d("ERROR" ,"" + throwable.getMessage());
                                }
                            }
