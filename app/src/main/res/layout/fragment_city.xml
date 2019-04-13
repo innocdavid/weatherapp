@@ -8,11 +8,14 @@
     tools:context=".City">
 
     <com.mancj.materialsearchbar.MaterialSearchBar
+        android:layout_marginTop="16dp"
         android:id="@+id/search_bar"
         style="@style/MaterialSearchBarDark"
         android:layout_width="match_parent"
+        app:mt_searchBarColor="#f1c40f"
         android:layout_height="wrap_content"
-        app:mt_dividerColor="#bdc3c7"
+        app:mt_dividerColor="#7f8c8d"
+        app:mt_placeholder="Search City here"
         app:mt_hint="City Name"
         app:mt_speechMode="false" />
 
