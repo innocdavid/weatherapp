@@ -57,6 +57,18 @@ public class ForecastFragment extends Fragment {
         mService = retrofit.create(IOpenWeatherMap.class);
     }
 
+    @Override
+    public void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onStop() {
+        compositeDisposable.clear();
+        super.onStop();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,14 +87,6 @@ public class ForecastFragment extends Fragment {
         getWeatherForecastInformation();
 
         return itemView;
-    }
-
-
-    @Override
-    public void onStop() {
-
-        compositeDisposable.clear();
-        super.onStop();
     }
 
     private void getWeatherForecastInformation() {
