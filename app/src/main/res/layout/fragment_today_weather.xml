@@ -12,7 +12,7 @@
         android:layout_width="286dp"
         android:layout_height="406dp"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/txt_city_name"

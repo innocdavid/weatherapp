@@ -71,8 +71,9 @@ public class TodayWeatherFragment extends Fragment {
 
         View itemView = inflater.inflate(R.layout.fragment_today_weather, container, false);
 
-        img_weather=(ImageView)itemView.findViewById(R.id.img_weather);
         txt_city_name=(TextView)itemView.findViewById(R.id.txt_city_name);
+        img_weather=(ImageView)itemView.findViewById(R.id.img_weather);
+
         txt_humidity=(TextView)itemView.findViewById(R.id.txt_humidity);
         txt_sunrise=(TextView)itemView.findViewById(R.id.txt_sunrise);
         txt_sunset=(TextView)itemView.findViewById(R.id.txt_sunset);
@@ -89,6 +90,12 @@ public class TodayWeatherFragment extends Fragment {
         getWeatherInfomation();
 
         return itemView;
+    }
+
+    @Override
+    public void onStop() {
+        compositeDisposable.clear();
+        super.onStop();
     }
 
     private void getWeatherInfomation() {
@@ -109,7 +116,7 @@ public class TodayWeatherFragment extends Fragment {
 
                             txt_city_name.setText(weatherResult.getName());
                             txt_description.setText(new StringBuilder("Weather in ")
-                                    .append(weatherResult.getName()));
+                            .append(weatherResult.getName()).toString());
 
                             txt_tempreture.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getTemp()))
                                     .append("°C").toString());
@@ -146,11 +153,8 @@ public class TodayWeatherFragment extends Fragment {
         super.onDestroy();
     }
 
-    @Override
-    public void onStop() {
-        compositeDisposable.clear();
-        super.onStop();
-    }
+
+
 
 
 
